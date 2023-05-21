@@ -11,21 +11,21 @@ const Search = ({ onSearchChange }) => {
         try {
             const response = await fetch(`${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions);
 
-            const {data} = await response.json();
+            const { data } = await response.json();
             console.log(data);
 
             if (!Array.isArray(data)) {
                 return { options: [] };
             }
 
-            const options=data.map((city) =>{
-                return{
-                    value:`${city.latitude}${city.longitude}`,
-                    label:`${city.name} ${city.countryCode}`    
+            const options = data.map((city) => {
+                return {
+                    value: `${city.latitude}${city.longitude}`,
+                    label: `${city.name} ${city.countryCode}`
                 }
             })
 
-            return {options};
+            return { options };
 
         } catch (error) {
             console.error(error);
@@ -43,7 +43,7 @@ const Search = ({ onSearchChange }) => {
         <AsyncPaginate
             placeholder="Search for city"
             debounceTimeout={600}
-            value={search}   
+            value={search}
             onChange={handleOnChange}
             loadOptions={loadOptions}
         />
